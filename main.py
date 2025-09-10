@@ -9,16 +9,20 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
-    p = Player(x,y)
-    
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+    pleya = Player(x,y)
+        
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         dt = clock.tick(60) / 1000
-        p.update(dt)
+        updatable.update(dt)
         screen.fill("black")
-        p.draw(screen)
+        for sprite in drawable:
+            sprite.draw(screen)
         pygame.display.flip()
         
 
