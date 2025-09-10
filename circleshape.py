@@ -25,3 +25,4 @@ class CircleShape(pygame.sprite.Sprite):
         if pygame.Vector2.distance_to(self.position, shape.position) < self.radius + shape.radius:
             return True
         return False
+       

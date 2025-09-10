@@ -23,8 +23,8 @@ def main():
     AsteroidField.containers = (updatable,)
     Asteroid.containers = (asteroids, updatable, drawable)
     Player.containers = (updatable, drawable)
-    pleya = Player(x,y)
-    asteroid_field = AsteroidField()
+    pleya = Player(x,y,0)
+    asteroid_field = AsteroidField() 
         
     while True:
         for event in pygame.event.get():
@@ -32,11 +32,17 @@ def main():
                 return
         dt = clock.tick(60) / 1000
         updatable.update(dt)
-        for sprite in asteroids:
-            if sprite.is_colliding(pleya):
+        
+        for asteroid in asteroids:
+            if asteroid.is_colliding(pleya):
                 print("Game over!")
                 sys.exit()
                 
+            for bullet in shots:
+                if bullet.is_colliding(asteroid):
+                    bullet.kill()
+                    asteroid.kill()
+                    
         screen.fill("black")
         for sprite in drawable:
             sprite.draw(screen)
